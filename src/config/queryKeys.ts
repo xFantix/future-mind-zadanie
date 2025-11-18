@@ -1,3 +1,3 @@
 export const QueryKeys = {
-  MOVIES: 'MOVIES',
+  MOVIES: 'INFINITE_MOVIES',
 } as const
