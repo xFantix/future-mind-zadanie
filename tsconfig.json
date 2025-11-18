@@ -6,8 +6,10 @@
   ],
   "compilerOptions": {
     "paths": {
+      "@/*": ["./src/*"],
       "@views/*": ["./src/views/*"],
-      "@routes/*": ["./src/routes/*"]
+      "@routes/*": ["./src/routes/*"],
+      "@layouts/*": ["./src/layouts/*"]
     }
   }
 }

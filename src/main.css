@@ -8,6 +8,7 @@
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) + 4px);
+  --font-family-roboto: 'Roboto', sans-serif;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -112,6 +113,7 @@
 
 @layer base {
   * {
+    font-family: var(--font-family-roboto);
     @apply border-border outline-ring/50;
   }
   body {

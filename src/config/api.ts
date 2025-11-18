@@ -1,7 +1,7 @@
 import type { Input, Options } from 'ky'
 import ky from 'ky'
 
-export const apiURL = `http://www.omdbapi.com/?apikey=${import.meta.env.VITE_OMDB_API_KEY}`
+export const apiURL = `http://www.omdbapi.com/`
 
 const config: Options = {
   prefixUrl: apiURL,
@@ -12,6 +12,9 @@ const config: Options = {
 
 export const http = ky.create({
   ...config,
+  searchParams: {
+    apikey: import.meta.env.VITE_OMDB_API_KEY,
+  },
   hooks: {
     beforeError: [
       async error => {
@@ -32,27 +35,22 @@ const {
 
 const get = (url: Input, options?: Options) =>
   httpGet(url, {
-    credentials: 'include',
     ...options,
   })
 const post = (url: Input, options?: Options) =>
   httpPost(url, {
-    credentials: 'include',
     ...options,
   })
 const put = (url: Input, options?: Options) =>
   httpPut(url, {
-    credentials: 'include',
     ...options,
   })
 const patch = (url: Input, options?: Options) =>
   httpPatch(url, {
-    credentials: 'include',
     ...options,
   })
 const destroy = (url: Input, options?: Options) =>
   httpDelete(url, {
-    credentials: 'include',
     ...options,
   })
 
