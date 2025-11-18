@@ -1,3 +1,6 @@
+import type { filtersSchema } from '@/schemas/filtersSchema'
+import type z from 'zod'
+
 export type FilmType = 'movie' | 'series' | 'episode'
 export type ResponseType = 'True' | 'False'
 
@@ -14,3 +17,5 @@ export interface FilmsResponse {
   totalResults: string
   Response: ResponseType
 }
+
+export type FiltersFormValues = z.infer<typeof filtersSchema>

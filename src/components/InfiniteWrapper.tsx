@@ -1,10 +1,14 @@
 import { Loader2 } from 'lucide-react'
+import { useEffect } from 'react'
 
 interface InfiniteWrapperProps {
   isLoading: boolean
   isFetchingNextPage: boolean
   ref: (node?: Element | null) => void
   children: React.ReactNode
+  inView: boolean
+  hasNextPage: boolean
+  fetchNextPage: () => void
 }
 
 const InfiniteWrapper = ({
@@ -12,7 +16,16 @@ const InfiniteWrapper = ({
   isLoading,
   isFetchingNextPage,
   children,
+  inView,
+  hasNextPage,
+  fetchNextPage,
 }: InfiniteWrapperProps) => {
+  useEffect(() => {
+    if (inView && hasNextPage) {
+      fetchNextPage()
+    }
+  }, [fetchNextPage, inView, hasNextPage])
+
   return (
     <>
       {isLoading ? (
