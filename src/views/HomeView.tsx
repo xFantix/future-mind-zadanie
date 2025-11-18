@@ -1,5 +1,5 @@
 const HomeView = () => {
-  return <div>HomeView</div>
+  return <div className="text-red-500">HomeView</div>
 }
 
 export default HomeView
