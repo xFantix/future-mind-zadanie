@@ -1,75 +1,58 @@
-# React + TypeScript + Vite
+# Future Mind – zadanie rekrutacyjne
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplikacja webowa pozwalająca wyszukiwać filmy w bazie OMDb, sprawdzać szczegóły oraz zapisywać ulubione pozycje po stronie klienta.
 
-Currently, two official plugins are available:
+## Konfiguracja środowiska
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Sklonuj repozytorium i przejdź do katalogu projektu:
+   ```bash
+   git clone <repo-url>
+   cd future-mind-zadanie
+   ```
+2. Zainstaluj zależności:
+   ```bash
+   npm install
+   ```
+3. Utwórz plik `.env` w katalogu głównym i dodaj klucz do API OMDb:
+   ```bash
+   VITE_OMDB_API_KEY=<twój_klucz_omdb>
+   ```
 
-## React Compiler
+## Uruchomienie aplikacji
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+- tryb developerski z HMR: `npm run dev` (domyślnie http://localhost:5173)
+- build produkcyjny: `npm run build`
+- podgląd builda: `npm run preview`
 
-Note: This will impact Vite dev & build performances.
+## Testy i jakość kodu
 
-## Expanding the ESLint configuration
+- testy jednostkowe i komponentowe (Vitest + Testing Library): `npm run test`
+- testy z pokryciem: `npm run test:coverage`
+- lintowanie kodu: `npm run lint`
+- formatowanie Prettierem: `npm run format`
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Technologie i biblioteki
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- React 19 z TypeScriptem oraz Vite 7 (React Compiler, HMR)
+- React Router 7 do zarządzania trasami i widokami
+- TanStack Query do pracy z danymi asynchronicznymi i cache
+- Zustand do zarządzania stanem ulubionych filmów
+- React Hook Form + Zod do walidacji filtrów wyszukiwania
+- Tailwind CSS 4 + shadcn/ui + Radix UI do warstwy UI
+- Ky jako klient HTTP oraz Sonner do obsługi powiadomień
+- Vitest, Testing Library, Jest DOM do testów i asercji
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Struktura projektu (skrót)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- `src/views` – widoki główne (lista filmów, szczegóły, ulubione)
+- `src/components` – komponenty współdzielone (formularze, listy, wrappery)
+- `src/services` – warstwa komunikacji z API OMDb
+- `src/store` – magazyn stanu (Zustand)
+- `src/schemas` – definicje schematów walidacyjnych Zod
+- `src/config` – konfiguracja klienta HTTP i endpointów
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Przydatne informacje
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Logika komunikacji z API bazuje na `import.meta.env.VITE_OMDB_API_KEY`, dlatego bez poprawnie ustawionego klucza wyszukiwanie nie zwróci wyników.
+- Ulubione filmy przechowywane są lokalnie w Zustand/Local Storage, dzięki czemu działają offline.
+- W katalogu `src/views/**/__tests__` znajdują się testy komponentów widoków, a `src/components/__tests__` obejmuje testy mniejszych elementów UI.
