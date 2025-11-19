@@ -1,16 +1,38 @@
 import FilmCard from '@/components/FilmCard'
 import InfiniteWrapper from '@/components/InfiniteWrapper'
 import { QueryKeys } from '@/config/queryKeys'
+import { filtersSchema } from '@/schemas/filtersSchema'
 import { MoviesService } from '@/services/movies.service'
+import type { FiltersFormValues } from '@/types/films'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { useInfiniteQuery } from '@tanstack/react-query'
+
 import { useMemo } from 'react'
+import { useForm } from 'react-hook-form'
 import { useInView } from 'react-intersection-observer'
 import Filters from './components/filters/Filters'
 const HomeView = () => {
   const { ref, inView } = useInView()
+
+  const form = useForm<FiltersFormValues>({
+    resolver: zodResolver(filtersSchema),
+    defaultValues: {
+      s: '',
+      y: undefined,
+      type: 'all',
+    },
+  })
+
+  const { s, y, type } = form.watch()
+
   const moviesQuery = useInfiniteQuery({
     queryFn: async ({ pageParam = 1 }) =>
-      await MoviesService.getMovies({ page: pageParam, s: 'batman' }),
+      await MoviesService.getMovies({
+        page: pageParam,
+        s,
+        y: y ? y : undefined,
+        type: type === 'all' ? undefined : type,
+      }),
     retryDelay: 6e4,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
@@ -22,7 +44,9 @@ const HomeView = () => {
       }
       return undefined
     },
+    enabled: false,
     queryKey: [QueryKeys.MOVIES],
+    retry: false,
   })
 
   const films = useMemo(() => {
@@ -31,7 +55,7 @@ const HomeView = () => {
 
   return (
     <>
-      <Filters />
+      <Filters form={form} moviesQuery={moviesQuery} />
       <InfiniteWrapper
         inView={inView}
         hasNextPage={moviesQuery.hasNextPage}

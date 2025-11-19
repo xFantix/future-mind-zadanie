@@ -14,13 +14,22 @@ interface SelectProps {
   options: { label: string; value: string }[]
   id: string
   className?: string
+  onChange?: (value: string) => void
+  value?: string
 }
 
-export function Select({ label, options, id, className }: SelectProps) {
+export function Select({
+  label,
+  options,
+  id,
+  className,
+  onChange,
+  value,
+}: SelectProps) {
   return (
     <div className="flex flex-col gap-3 w-full">
       <Label htmlFor={id}>{label}</Label>
-      <SelectPrimitive>
+      <SelectPrimitive onValueChange={onChange} value={value}>
         <SelectTrigger className={cn('w-[180px]', className)}>
           <SelectValue placeholder={label} />
         </SelectTrigger>

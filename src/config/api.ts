@@ -1,5 +1,6 @@
 import type { Input, Options } from 'ky'
 import ky from 'ky'
+import { toast } from 'sonner'
 
 export const apiURL = `http://www.omdbapi.com/`
 
@@ -16,6 +17,17 @@ export const http = ky.create({
     apikey: import.meta.env.VITE_OMDB_API_KEY,
   },
   hooks: {
+    afterResponse: [
+      async (request, options, response) => {
+        const data = await response.json()
+        if (
+          (data as { Response: string; Error: string }).Response === 'False'
+        ) {
+          toast.error((data as { Error: string }).Error)
+          throw new Error('Error fetching data')
+        }
+      },
+    ],
     beforeError: [
       async error => {
         // const errorRequestUrl = new URL(error.request.url)
