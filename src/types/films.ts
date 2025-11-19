@@ -19,3 +19,36 @@ export interface FilmsResponse {
 }
 
 export type FiltersFormValues = z.infer<typeof filtersSchema>
+
+export type FilmDetailsResponse = Record<
+  | 'Title'
+  | 'Year'
+  | 'Rated'
+  | 'Released'
+  | 'Runtime'
+  | 'Genre'
+  | 'Director'
+  | 'Writer'
+  | 'Actors'
+  | 'Plot'
+  | 'Language'
+  | 'Country'
+  | 'Awards'
+  | 'Poster'
+  | 'Ratings'
+  | 'Metascore'
+  | 'imdbRating'
+  | 'imdbVotes'
+  | 'imdbID'
+  | 'Type'
+  | 'DVD'
+  | 'BoxOffice'
+  | 'Production'
+  | 'Website'
+  | 'Response',
+  string
+> & {
+  Ratings?: Rating[]
+}
+
+export type Rating = Record<'Source' | 'Value', string>
