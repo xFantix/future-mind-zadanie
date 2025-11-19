@@ -9,7 +9,9 @@ const MainLayoutHeader = () => {
             Future Mind Films
           </h1>
         </Link>
-        <StarIcon size={24} color="red" />
+        <Link to="/favourites">
+          <StarIcon size={24} color="red" />
+        </Link>
       </div>
     </header>
   )

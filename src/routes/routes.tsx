@@ -1,3 +1,4 @@
+import FavouritesFilms from '@/views/favouritesFilms/FavouritesFilms'
 import FilmDetails from '@/views/filmDetails/FilmDetails'
 import HomeView from '@/views/homeView/HomeView'
 import MainLayout from '@layouts/mainLayout/MainLayout'
@@ -15,6 +16,10 @@ const routes = createBrowserRouter([
       {
         path: '/film/:id',
         element: <FilmDetails />,
+      },
+      {
+        path: '/favourites',
+        element: <FavouritesFilms />,
       },
     ],
   },
